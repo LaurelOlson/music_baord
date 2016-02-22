@@ -1,4 +1,4 @@
-class Song < ActieRecord::Base
+class Song < ActiveRecord::Base
 
   validates :title,
     presence: true
