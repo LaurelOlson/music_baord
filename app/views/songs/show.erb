@@ -1,0 +1,15 @@
+<a href="/">Home</a> | <a href="/songs">All songs</a>
+<hr/>
+
+<h1><%= @song.title %></h1>
+
+<p>Artist: <%= @song.artist %></p>
+
+<p><a href="<%= @song.url %>"><%= @song.url %></a></p>
+
+<p><small>created at: <%= @song.created_at %></small></p>
+
+<hr/>
+<a href="/songs">Back to All Songs</a>
+
+
