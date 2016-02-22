@@ -34,6 +34,18 @@
 
   <p class="small">created at: <%= @song.created_at %></p>
 
+  <p>
+  <% if Song.where(artist: @song.artist).where.not(title: @song.title).any? %>
+    Other songs by <%= @song.artist %>:
+    <br><% Song.where(artist: @song.artist).to_a.each do |song| %>
+      <% if song.title != @song.title %> 
+        <br><%= song.title %> <small><%= song.url %></small>
+        <br><small>created at: <%= song.created_at %></small><br>
+      <% end %>
+    <% end %>
+  <% end %>
+</p>
+
 </div>
 
 </body>

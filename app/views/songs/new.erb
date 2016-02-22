@@ -28,7 +28,18 @@
 
   <h1>Add Song</h1>
 
-  <form>
+  <% if @song.errors.any? %>
+    <div class="alert-warning">
+    <h5>Some issues with your song, please fix them:</h5>
+      <ul>
+        <% @song.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <form method="post" action="/songs">
     <div>
       <label>Arist:</label>
       <input type="text" name="artist">
@@ -40,6 +51,9 @@
     <div>
       <label>URL (optional):</label>
       <input type="text" name="url">
+    </div>
+    <div>
+      <input type="submit" value="Submit">
     </div>
   </form>
 
