@@ -30,3 +30,11 @@ post '/songs' do
     erb :'songs/new'
   end
 end
+
+get '/users/login' do
+  erb :'users/login'
+end
+
+get '/users/sign_up' do
+  erb :'users/sign_up'
+end
