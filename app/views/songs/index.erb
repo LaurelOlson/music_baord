@@ -20,6 +20,7 @@
       <p>
         <a href="<%= song.url %>"><%= song.url %></a>
       </p>
+      <div id="rating">Average Rating</div><div id="add_review"><a href="/songs/<%= song.id %>">Add Review</a></div>
       <p>Added by: <%= User.find(song.user_id).username %></p>
     </div>
   <% end %>

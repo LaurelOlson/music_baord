@@ -2,13 +2,8 @@ helpers do
   def current_user
     User.find(session[:id]) if session[:id]
   end
-
-  # def current_song
-  #   Song.find(session[:song_id]) if session[:song_id]
-  # end
 end
 
-# Homepage (Root path)
 get '/' do
   @songs = Song.all
   erb :index
@@ -26,6 +21,7 @@ end
 
 get '/songs/:id' do
   @song = Song.find params[:id]
+  @review = Review.new
   erb :'songs/show'
 end
 
@@ -101,4 +97,18 @@ get '/down_vote/:id' do
   current_user.votes << Vote.new(user_id: current_user.id, song_id: current_song.id)
   @songs = Song.all
   redirect :'/songs'
+end
+
+post '/reviews' do
+  @review = Review.new(
+    rating: params[:rating],
+    review: params[:review],
+    song_id: session[:song_id],
+    user_id: current_user.id
+  )
+  if @review.save
+    redirect "/songs/#{@review.song_id}"
+  else
+    erb :'users/sign_up'
+  end
 end
