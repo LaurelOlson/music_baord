@@ -39,10 +39,17 @@
       <li><a href="/songs">All Songs</a></li>
       <li><a href="/songs/new">New Song</a></li>
     </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <li><a href="/users/sign_up"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-      <li><a href="/users/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-    </ul>
+    <% if current_user %>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/users/account"><span class="glyphicon glyphicon-user"></span> <%= current_user.username %> </a></li>
+        <li><a href="/users/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+      </ul>
+    <% else %>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/users/sign_up"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="/users/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    <% end %>
   </div>
 </nav>
 <!-- Yield to code in erb file -->

@@ -1,3 +1,9 @@
+helpers do 
+  def current_user
+    User.find(session[:id]) if session[:id]
+  end
+end
+
 # Homepage (Root path)
 get '/' do
   erb :index
@@ -40,18 +46,37 @@ get '/users/sign_up' do
   erb :'users/sign_up'
 end
 
-post '/users' do
+post '/users/sign_up' do
   @user = User.new(
     username: params[:username],
     password: params[:password]
   )
   if @user.save
+    session[:id] = @user.id
     redirect '/users/account'
   else
     erb :'users/sign_up'
   end
 end
 
+post '/users/login' do
+  @user = User.find_by(username: params[:username], password: params[:password])
+  if @user
+    session[:id] = @user.id
+    erb :'users/account' 
+  else
+    flash[:error] = 'Invalid username or password'
+    redirect 'users/login'
+    erb :'users/login'
+  end
+end
+
 get '/users/account' do
   erb :'users/account'
+end
+
+get '/users/logout' do
+  # session[:id] = nil # only deletes id key
+  session.clear # deletes all keys
+  redirect '/'
 end

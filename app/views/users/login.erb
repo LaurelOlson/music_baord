@@ -8,14 +8,21 @@
 
   <h1>Login</h1>
 
-  <form role="form" method="post" action="/users">
+  <% if flash[:error] %>
+    <div class="alert-warning">
+    <h5><%= flash[:error] %></h5>
+    </div>
+  <% end %>
+
+
+  <form role="form" method="post" action="/users/login">
     <div class="form-group">
       <label for="username">Username:</label>
-      <input type="text" class="form-control" id="username">
+      <input type="text" class="form-control" name="username">
     </div>
     <div class="form-group">
-      <label for="password">password:</label>
-      <input type="password" class="form-control" id="password">
+      <label for="password">Password:</label>
+      <input type="password" class="form-control" name="password">
     </div>
     <div class="checkbox">
       <label><input type="checkbox"> Remember me</label>
