@@ -19,21 +19,25 @@
     </div>
   <% end %>
 
-  <form role="form" method="post" action="/songs">
-    <div class="form-group">
-      <label for="artist">Arist:</label>
-      <input type="text" name="artist" class="form-control">
-    </div>
-    <div class="form-group">
-      <label for="title">Title:</label>
-      <input type="text" name="title" class="form-control">
-    </div>
-    <div class="form-group">
-      <label for="url">URL (optional):</label>
-      <input type="text" name="url" class="form-control">
-    </div>
-    <button type="submit" class="btn btn-default">Submit</button>
-  </form>
+  <% if current_user %>
+    <form role="form" method="post" action="/songs">
+      <div class="form-group">
+        <label for="artist">Arist:</label>
+        <input type="text" name="artist" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="title">Title:</label>
+        <input type="text" name="title" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="url">URL (optional):</label>
+        <input type="text" name="url" class="form-control">
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+  <% else %>
+    <p><a href="/users/login">Login</a> to add a song</p>
+  <% end %>
 
 </div>
 

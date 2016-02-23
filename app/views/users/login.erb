@@ -8,9 +8,9 @@
 
   <h1>Login</h1>
 
-  <% if flash[:error] %>
+  <% if flash[:login_error] %>
     <div class="alert-warning">
-    <h5><%= flash[:error] %></h5>
+      <h5><%= flash[:login_error] %></h5>
     </div>
   <% end %>
 
@@ -24,9 +24,9 @@
       <label for="password">Password:</label>
       <input type="password" class="form-control" name="password">
     </div>
-    <div class="checkbox">
+<!--     <div class="checkbox">
       <label><input type="checkbox"> Remember me</label>
-    </div>
+    </div> -->
     <button type="submit" class="btn btn-default">Login</button>
   </form>
 

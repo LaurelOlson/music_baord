@@ -1,1 +1,30 @@
+.vote {
+  width: 30px;
+  float: left;
+  clear: left;
+}
 
+.vote img {
+  width: 25px;
+  height: 25px;
+  display: block;
+  float: none;
+  clear: both;
+}
+
+.song {
+  margin-left: 50px;
+}
+
+#count {
+  text-align: center;
+  width: 25px;
+}
+
+#profile_photo {
+  width: 300px;
+  height: 300px;
+  border: 1px solid;
+  float: left;
+  clear: both;
+}

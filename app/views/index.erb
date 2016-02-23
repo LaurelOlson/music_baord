@@ -5,7 +5,22 @@
 <body>
 
 <div class="container-fluid">
-  <h1>Home Page</h1>
+  <h1>Top Songs</h1>
+  <hr/>
+  <% @songs.order(count: :desc).limit(5).each do |song| %>
+    <div class="vote">
+      <a href="up_vote/<%= song.id %>"><img src="images/up_arrow.png"></a>
+      <div id="count"><%= song.count %></div>
+      <a href="down_vote/<%= song.id %>"><img src="images/down_arrow.png"></a>
+    </div>
+    <div class="song">
+      <h3><a href="songs/<%= song.id %>"><%= song.title %></a> <small>by: <%= song.artist %></small></h3>
+      <p>
+        <a href="<%= song.url %>"><%= song.url %></a>
+      </p>
+      <p>Added by: <%= User.find(song.user_id).username %></p>
+    </div>
+  <% end %>
 </div>
 
 </body>

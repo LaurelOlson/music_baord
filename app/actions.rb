@@ -2,10 +2,15 @@ helpers do
   def current_user
     User.find(session[:id]) if session[:id]
   end
+
+  # def current_song
+  #   Song.find(session[:song_id]) if session[:song_id]
+  # end
 end
 
 # Homepage (Root path)
 get '/' do
+  @songs = Song.all
   erb :index
 end
 
@@ -28,6 +33,7 @@ post '/songs' do
   @song = Song.new(
     title: params[:title],
     artist: params[:artist],
+    user: current_user,
     url: params[:url]
   )
   if @song.save
@@ -65,7 +71,7 @@ post '/users/login' do
     session[:id] = @user.id
     erb :'users/account' 
   else
-    flash[:error] = 'Invalid username or password'
+    flash[:login_error] = 'Invalid username or password'
     redirect 'users/login'
     erb :'users/login'
   end
@@ -79,4 +85,20 @@ get '/users/logout' do
   # session[:id] = nil # only deletes id key
   session.clear # deletes all keys
   redirect '/'
+end
+
+get '/up_vote/:id' do 
+  current_song = Song.find params[:id]
+  current_song.increment!(:count, 1) unless current_user.votes.find { |vote| vote.song == current_song }
+  current_user.votes << Vote.new(user_id: current_user.id, song_id: current_song.id)
+  @songs = Song.all
+  redirect :'/songs'
+end
+
+get '/down_vote/:id' do
+  current_song = Song.find(params[:id])
+  current_song.increment!(:count, -1) unless current_user.votes.find { |vote| vote.song == current_song }
+  current_user.votes << Vote.new(user_id: current_user.id, song_id: current_song.id)
+  @songs = Song.all
+  redirect :'/songs'
 end

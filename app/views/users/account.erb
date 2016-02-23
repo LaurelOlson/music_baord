@@ -6,7 +6,24 @@
 
 <div class="container-fluid">
 
-  <h1>Your Account</h1>
+  <h1>Hello, <%= current_user.username %></h1>
+
+  <h3>Your songs:</h3>
+
+  <% if current_user.songs.empty? %>
+    <p>You haven't added any songs yet!</p>
+    <h5><a href="/songs/new">Add Song</a></h5>
+  <% else %>
+    <% current_user.songs.order(count: :desc).each do |song| %>
+      <div>
+        <h3><a href="songs/<%= song.id %>"><%= song.title %></a> <small>by: <%= song.artist %></small></h3>
+        <p>
+          <a href="<%= song.url %>"><%= song.url %></a>
+        </p>
+        <p>Rating: <%= song.count %></p>
+      </div>
+    <% end %>
+  <% end %>
 
 </div>
 
