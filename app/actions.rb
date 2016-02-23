@@ -112,3 +112,9 @@ post '/reviews' do
     erb :'users/sign_up'
   end
 end
+
+get '/songs/delete_review/:id' do
+  song_id = Review.find(params[:id]).song_id
+  Review.delete(params[:id])
+  redirect "songs/#{song_id}"
+end

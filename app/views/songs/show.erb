@@ -54,7 +54,11 @@
       <hr/>
       <p>Rating: <%= review.rating %></p>
       <p><%= review.review %></p>
-      <p class="small">by: <%= User.find(review.user_id).username %> <%= (review.created_at.to_date - Date.today).to_i %> days ago</p>
+      <p class="small">by: <%= User.find(review.user_id).username %> <%= (review.created_at.to_date - Date.today).to_i %> days ago
+      <% if current_user && review.user_id == current_user.id %>
+        <a href="delete_review/<%= review.id %>">delete</a></p>
+      <% end %>
+
     <% end %>
   <% end %>
 
