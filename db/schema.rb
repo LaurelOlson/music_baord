@@ -11,12 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160222192141) do
+ActiveRecord::Schema.define(version: 20160222225714) do
 
   create_table "songs", force: :cascade do |t|
     t.string   "title"
     t.string   "artist"
     t.string   "url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "username"
+    t.string   "password"
+    t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -36,5 +36,22 @@ get '/users/login' do
 end
 
 get '/users/sign_up' do
+  @user = User.new
   erb :'users/sign_up'
+end
+
+post '/users' do
+  @user = User.new(
+    username: params[:username],
+    password: params[:password]
+  )
+  if @user.save
+    redirect '/users/account'
+  else
+    erb :'users/sign_up'
+  end
+end
+
+get '/users/account' do
+  erb :'users/account'
 end
