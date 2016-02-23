@@ -7,11 +7,8 @@
 <div class="container-fluid">
 
   <h1><%= @song.title %></h1>
-
   <p class="lead">Artist: <%= @song.artist %></p>
-
   <p class="lead"><a href="<%= @song.url %>"><%= @song.url %></a></p>
-
   <p class="small">created at: <%= @song.created_at %></p>
 
   <h3>Add Review</h3>
@@ -32,18 +29,28 @@
   <% if current_user && Review.find_by(user_id: current_user, song_id: @song.id) %>
     <p>You've already reviewed this song! </p>
     <p><a href="/songs">Back to Songs</a></p>
+
   <% elsif current_user %>
     <form role="form" method="post" action="/reviews">
       <div class="form-group">
-        <label for="rating">Rating:</label>
-        <input type="integer" name="rating" class="form-control">
+        <label for="input-1" class="control-label">Rating:</label>
+        <input id="input-1" name="rating" type="number" class="rating rating-loading" data-min="0" data-max="5" data-step="1" data-size="sm" data-rtl="false">
       </div>
+<!--         <select class="form-control" name="rating">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+        </select>
+      </div> -->
       <div class="form-group">
         <label for="review">Review:</label>
         <input type="text" name="review" class="form-control">
       </div>
       <button type="submit" class="btn btn-default">Submit</button>
     </form>
+
   <% else %>
     <p><a href="/users/login">Login</a> to add a review</p>
   <% end %>
@@ -52,7 +59,7 @@
   <% unless @song.reviews.empty? %>
     <% @song.reviews.order(created_at: :desc).to_a.each do |review| %>
       <hr/>
-      <p>Rating: <%= review.rating %></p>
+      <input id="input-2" class="rating rating-loading" value="<%= review.rating %>" data-min="0" data-max="5" data-set="1" data-readonly="true" data-size="xs">
       <p><%= review.review %></p>
       <p class="small">by: <%= User.find(review.user_id).username %> <%= (review.created_at.to_date - Date.today).to_i %> days ago
       <% if current_user && review.user_id == current_user.id %>
