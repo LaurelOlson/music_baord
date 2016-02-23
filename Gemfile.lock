@@ -41,6 +41,8 @@ GEM
     rack (1.6.4)
     rack-flash (0.1.2)
       rack
+    rack-flash3 (1.0.5)
+      rack
     rack-protection (1.5.3)
       rack
     rack-test (0.6.3)
@@ -102,6 +104,7 @@ DEPENDENCIES
   activesupport
   pry
   puma
+  rack-flash3
   rake
   shotgun
   sinatra
